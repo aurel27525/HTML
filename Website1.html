@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Website 1 — Aurelia</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Mountains+of+Christmas:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg1: #FFF7FB;
+      --bg2: #FFF2E8;
+      --accent1: #FF9CC2; /* pink */
+      --accent2: #FFD6A5; /* peach */
+      --accent3: #BFEAF5; /* mint-ish */
+      --card: rgba(255,255,255,0.8);
+      --glass: rgba(255,255,255,0.6);
+      --muted: #6b6b75;
+      --radius: 18px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: 'Poppins', system-ui, -apple-system, 'Helvetica Neue', Arial;
+      background: radial-gradient(1000px 600px at 10% 20%, var(--accent1) 0%, transparent 12%),
+                  radial-gradient(900px 500px at 90% 80%, var(--accent3) 0%, transparent 12%),
+                  linear-gradient(180deg,var(--bg1),var(--bg2));
+      color:#28323a;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      padding:48px 24px;
+    }
+
+    .container{max-width:1100px;margin:0 auto}
+
+    header{
+      display:flex;align-items:center;justify-content:space-between;
+      gap:16px;margin-bottom:28px
+    }
+    .brand{
+      display:flex;gap:12px;align-items:center
+    }
+    .logo{
+      width:56px;height:56px;border-radius:14px;background:linear-gradient(135deg,var(--accent1),var(--accent2));
+      display:flex;align-items:center;justify-content:center;font-weight:700;color:white;font-family:'Mountains of Christmas', cursive;font-size:22px;box-shadow:0 8px 20px rgba(0,0,0,0.08)
+    }
+    nav a{margin-left:14px;text-decoration:none;color:#3b3b47;font-weight:600}
+
+    main.hero{
+      background: linear-gradient(180deg, rgba(255,255,255,0.55), rgba(255,255,255,0.35));
+      padding:36px;border-radius:24px;backdrop-filter: blur(6px);box-shadow:0 12px 40px rgba(50,50,70,0.06);
+      display:grid;grid-template-columns:1fr 420px;gap:20px;align-items:center;margin-bottom:28px
+    }
+
+    .hero h1{font-size:34px;margin:0 0 8px;line-height:1.04;font-weight:700}
+    .hero p{margin:0 0 18px;color:var(--muted)}
+    .cta{
+      display:inline-flex;gap:10px;align-items:center;background:linear-gradient(90deg,var(--accent1),var(--accent2));padding:10px 16px;border-radius:12px;color:white;font-weight:700;text-decoration:none;box-shadow:0 8px 20px rgba(255,156,194,0.18)
+    }
+
+    .card{
+      background:var(--card);padding:18px;border-radius:16px;box-shadow:0 10px 30px rgba(35,35,45,0.04)
+    }
+
+    /* right hero preview */
+    .preview{
+      display:flex;flex-direction:column;gap:12px;align-items:center;justify-content:center
+    }
+    .device{
+      width:320px;height:220px;border-radius:14px;background:linear-gradient(180deg,rgba(255,255,255,0.7),rgba(255,255,255,0.55));box-shadow:0 12px 30px rgba(30,30,40,0.06);display:flex;flex-direction:column;overflow:hidden
+    }
+    .device .top{height:36px;background:transparent;display:flex;align-items:center;gap:8px;padding:8px}
+    .dot{width:10px;height:10px;border-radius:50%;background:rgba(0,0,0,0.14)}
+    .screen{flex:1;padding:14px}
+
+    .features{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:18px}
+    .feature{display:flex;gap:12px;align-items:flex-start}
+    .icon{width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--accent2),var(--accent3));display:flex;align-items:center;justify-content:center;font-weight:700;color:white}
+
+    /* gallery */
+    .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:22px}
+    .thumb{height:120px;border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,0.6),rgba(255,255,255,0.45));display:flex;align-items:center;justify-content:center;font-weight:600;overflow:hidden}
+
+    footer{display:flex;justify-content:space-between;align-items:center;margin-top:26px;color:var(--muted)}
+
+    /* responsive */
+    @media (max-width:880px){
+      main.hero{grid-template-columns:1fr;}
+      .gallery{grid-template-columns:repeat(2,1fr)}
+    }
+
+    /* cute animated floating shapes */
+    .float-shape{position:fixed;z-index:0;opacity:0.18;filter:blur(8px);pointer-events:none}
+    .shape1{width:220px;height:220px;left:4%;top:6%;background:radial-gradient(circle at 30% 30%,var(--accent1),transparent);border-radius:50%}
+    .shape2{width:180px;height:180px;right:6%;bottom:10%;background:radial-gradient(circle at 30% 30%,var(--accent3),transparent);border-radius:40%}
+
+    /* small extras */
+    .pill{display:inline-block;padding:6px 10px;border-radius:999px;background:var(--glass);font-weight:600}
+
+    /* tiny JS-driven bounce */
+    .like-btn{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:12px;border:0;background:transparent;cursor:pointer}
+    .like-btn span{font-weight:700}
+    .pop{transform:scale(1.12);transition:transform .18s}
+  </style>
+</head>
+<body>
+  <div class="float-shape shape1"></div>
+  <div class="float-shape shape2"></div>
+
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="logo">💖</div>
+        <div>
+          <div style="font-weight:700">Heart Website </div>
+          <div style="font-size:12px;color:var(--muted)">By: Aurelia Christabel</div>
+        </div>
+      </div>
+
+      <nav class="card" style="padding:8px 12px;display:flex;align-items:center">
+        <a href="#">Home</a>
+        <a href="#features">Feature</a>
+        <a href="#gallery">Galery</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main class="hero">
+      <div>
+        <h1>Hello this is my first website ✨</h1>
+        <p>This my first experience for make a website.</p>
+
+        <a class="cta" href="#contact">Let's Start</a>
+
+        <div class="features" id="features">
+          <div class="feature card" style="margin-top:12px">
+            <div class="icon">🌸</div>
+            <div>
+              <div style="font-weight:700">Pink Flower</div>
+              <div style="color:var(--muted);font-size:13px">Pink is my favourite color.</div>
+            </div>
+          </div>
+
+          <div class="feature card" style="margin-top:12px">
+            <div class="icon">⚡</div>
+            <div>
+              <div style="font-weight:700">Light</div>
+              <div style="color:var(--muted);font-size:13px">I make this website by html.</div>
+            </div>
+          </div>
+
+          <div class="feature card" style="margin-top:12px">
+            <div class="icon">🎀</div>
+            <div>
+              <div style="font-weight:700">Sleep</div>
+              <div style="color:var(--muted);font-size:13px">I love to sleep guys.</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <aside class="preview">
+        <div class="card device">
+          <div class="top">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+          </div>
+          <div class="screen">
+            <div style="font-weight:700;font-size:16px;margin-bottom:6px">Introduction!</div>
+            <div style="color:var(--muted);font-size:13px">I'm Aurelia, in this year i will turn to 18 yo.</div>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:8px;width:100%;justify-content:space-between">
+          <div class="pill">📦 Mini box</div>
+          <button class="like-btn card" id="likeBtn">💗 <span id="likeCount">128</span></button>
+        </div>
+      </aside>
+    </main>
+
+    <section id="gallery">
+      <h3 style="margin:0 0 12px">Galeri</h3>
+      <div class="gallery">
+        <div class="thumb card" data-slot="A">
+          <img id="imgA" src="Screenshot_2025-02-27-09-36-37-49_080032403b0f3d7ce099ec68649d222a.jpg"
+               alt="Gambar A" style="width:100%;height:100%;object-fit:cover;border-radius:12px">
+        </div>
+        <div class="thumb card" data-slot="B">
+          <img id="imgB" src="IMG_20241026_193913_995.jpg"
+               alt="Gambar B" style="width:100%;height:100%;object-fit:cover;border-radius:12px">
+        </div>
+        <div class="thumb card" data-slot="C">
+          <img id="imgC" src="IMG20250313101237.jpg"
+               alt="Gambar C" style="width:100%;height:100%;object-fit:cover;border-radius:12px">
+        </div>
+      </div>
+      <input type="file" id="galleryFileInput" accept="image/*" style="display:none">
+    </section>
+
+    <section id="contact" style="margin-top:18px">
+      <div class="card" style="display:flex;gap:18px;flex-wrap:wrap;align-items:center">
+        <div style="flex:1;min-width:220px">
+          <div style="font-weight:700;font-size:18px">Contact me</div>
+          <div style="color:var(--muted);margin-top:6px">You can send me massage (HTML, React, or Figma mockup).</div>
+        </div>
+        <form style="min-width:240px;flex-basis:360px;display:flex;flex-direction:column;gap:8px" onsubmit="event.preventDefault();alert('Terima kasih! (Demo)')">
+          <input placeholder="Name" style="padding:10px;border-radius:10px;border:1px solid rgba(0,0,0,0.06)" />
+          <input placeholder="Email" style="padding:10px;border-radius:10px;border:1px solid rgba(0,0,0,0.06)" />
+          <textarea placeholder="Short massage" rows="3" style="padding:10px;border-radius:10px;border:1px solid rgba(0,0,0,0.06)"></textarea>
+          <button class="cta" style="align-self:flex-start">Send</button>
+        </form>
+      </div>
+    </section>
+
+    <footer>
+      <div style="font-size:13px">© <strong>Peanut Pinky Butter</strong> — made by Aurelia Christabel</div>
+      <div style="font-size:13px;color:var(--muted)">Single Website • Luvvv</div>
+    </footer>
+  </div>
+
+  <script>
+    // Tomblok kecil interaksi lopp
+    const likeBtn = document.getElementById('likeBtn');
+    const likeCount = document.getElementById('likeCount');
+    likeBtn.addEventListener('click', ()=>{
+      likeBtn.classList.add('pop');
+      setTimeout(()=>likeBtn.classList.remove('pop'),180);
+      likeCount.textContent = String(Number(likeCount.textContent) + 1);
+    });
+
+    // upload gambar imoetkuh
+    const fileInput = document.getElementById('galleryFileInput');
+    let targetImg = null;
+
+    document.querySelectorAll('.thumb').forEach(slot => {
+      slot.style.cursor = 'pointer';
+      slot.addEventListener('click', () => {
+        targetImg = slot.querySelector('img');
+        fileInput.value = null;
+        fileInput.click();
+      });
+    });
+
+    fileInput.addEventListener('change', e => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = ev => {
+        if (targetImg) targetImg.src = ev.target.result;
+      };
+      reader.readAsDataURL(file);
+    });
+  </script>
+</body>
+</html>
